@@ -9,7 +9,7 @@ from tensorflow.keras import models
 # page configuration
 st.set_page_config(
     page_title="Digit Detection App",
-    page_icon="👁️",
+    page_icon="🔢",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
