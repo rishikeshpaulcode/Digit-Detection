@@ -2,4 +2,5 @@ streamlit>=1.30.0,<1.38.0
 streamlit-drawable-canvas==0.9.3
 numpy
 tensorflow
+opencv-python
 matplotlib
