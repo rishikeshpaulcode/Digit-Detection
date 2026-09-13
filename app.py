@@ -5,12 +5,25 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import models
 
+
 # page configuration
 st.set_page_config(
     page_title="Digit Detection App",
-    page_icon="👁️‍🗨️",
+    page_icon="👁️",
     layout="centered",
     initial_sidebar_state="collapsed",
+)
+
+# custom styling
+st.markdown(
+    """
+    <style>
+    div.stProgress > div > div > div > div {
+        background-color: #28a745; /* Green */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
 
@@ -62,8 +75,19 @@ with col2:
 
             model_predicted_array = model.predict(normalized_image[np.newaxis, :])
             model_verdict = np.argmax(model_predicted_array)
+            model_confidence = model_predicted_array[0][model_verdict]            
 
-            st.write(model_verdict)
+            st.subheader(f"Final Verdict: :green[{model_verdict}]")
+            st.progress(
+                float(model_confidence),
+                text=f":grey[Confidence:] :green[{(model_confidence * 100):.2f}%]"
+            )
+            st.write(":grey[Detailed Class Probabilities:]")
+            st.bar_chart(
+                model_predicted_array[0],
+                color="#28a745",
+                height=270
+            )
         else:
             st.warning("Empty canvas cannot be processed.", icon="⚠️")
 
