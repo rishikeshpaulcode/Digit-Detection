@@ -13,6 +13,11 @@ st.set_page_config(
 )
 
 
+# session state variable
+if "display_predictions" not in st.session_state:
+    st.session_state["display_predictions"] = False
+
+
 # app title and subtitle
 st.title(":green[Digit Detection App]")
 st.write(":grey[This is a Neural Network based basic Digit Detection and Classification app built using TensorFlow, Keras, NumPy, Streamlit.]")
@@ -40,10 +45,17 @@ with col1:
         key="canvas",
     )
 
-    st.button("Predict Digit", type="primary")
+    if st.button("Predict Digit", type="primary"):
+        st.session_state["display_predictions"] = True
 
 with col2:
     # display model predictions
     st.subheader("Model Prediction:")
-    st.write(":grey[👈 Draw in Canvas and click 'Predict Digit' button to view model verdict.]")
+
+    if st.session_state["display_predictions"]:
+        st.subheader("Demo Output")
+
+        st.session_state["display_predictions"] = False
+    else:
+        st.write(":grey[👈 Draw in Canvas and click 'Predict Digit' button to view model verdict.]")
 
